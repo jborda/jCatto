@@ -1,0 +1,16 @@
+<html>
+<head>
+<title>{% block titulo %}{% endblock %}</title>
+</head>
+<body>
+	<div id=pagina>
+		<div id=menu>Menu</div>
+		<div id=topo>Topo</div>
+		<div id=titulo>{{titulo}}</div>
+		<div id=conteudo>{% block conteudo %}{% endblock %}</div>
+		<div id=rodape>
+			<address>Rodapé</address>
+		</div>
+	</div>
+</body>
+</html>
