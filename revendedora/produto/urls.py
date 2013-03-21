@@ -1,12 +1,7 @@
 from django.conf.urls import patterns, include, url
 
-# Uncomment the next two lines to enable the admin:
-# from django.contrib import admin
-# admin.autodiscover()
-
-urlpatterns = patterns('',
-    url(r'^$', 'views.index'),
-    url(r'^produto/', include('produto.urls')),
+urlpatterns = patterns('produto',
+    url(r'^$', 'views.lista'),
     # Examples:
     # url(r'^$', 'revendedora.views.home', name='home'),
     # url(r'^revendedora/', include('revendedora.foo.urls')),

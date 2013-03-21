@@ -12,7 +12,8 @@ class ProdutoTeste(TestCase):
 
     def test_add(self):
         self.assertEquals(Produto.objects.count(), 0)
-	Produto.objects.get_or_create(
-	    codigo = 'A2530F', nome = 'Perfume Boi Zebu'
+        Produto.objects.get_or_create(
+            codigo='A2530F', nome='Perfume Boi Zebu'
 	    )
-        self.assertEqual(Produto.objects.count(), 1)
+        self.assertEquals(Produto.objects.count(), 1)
+        self.assertEquals(Produto.objects[0].nome, 'Perfume Boi Zebu')
