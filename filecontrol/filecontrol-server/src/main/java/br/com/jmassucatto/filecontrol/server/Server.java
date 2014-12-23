@@ -29,10 +29,7 @@ public class Server {
 		throw new RuntimeException("Arquivo não encontrado: " + nomeArquivo);
 	}
 	
-	
-	
 	public static void main(String[] args) {
-		
 		System.out.println(new Server().getNomeArquivos());
 		System.out.println(new Server().getArquivo("aquivo1"));
 	}
