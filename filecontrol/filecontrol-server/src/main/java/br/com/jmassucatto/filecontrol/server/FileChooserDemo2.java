@@ -1,11 +1,19 @@
 package br.com.jmassucatto.filecontrol.server;
 
-import java.io.*;
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
-import javax.swing.filechooser.*;
+import javax.swing.UIManager;
 
 /*
  * FileChooserDemo2.java requires these files:
@@ -18,9 +26,10 @@ import javax.swing.filechooser.*;
  *   images/tiffIcon.gif (required by ImageFileView.java)
  *   images/pngIcon.png (required by ImageFileView.java)
  */
-public class FileChooserDemo2 extends JPanel
-                              implements ActionListener {
-    static private String newline = "\n";
+public class FileChooserDemo2 extends JPanel implements ActionListener {
+	private static final long serialVersionUID = -832332340902185416L;
+
+	static private String newline = "\n";
     private JTextArea log;
     private JFileChooser fc;
 

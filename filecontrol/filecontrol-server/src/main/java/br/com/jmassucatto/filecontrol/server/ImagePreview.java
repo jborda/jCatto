@@ -1,14 +1,21 @@
 package br.com.jmassucatto.filecontrol.server;
 
-import javax.swing.*;
-import java.beans.*;
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
 
+import javax.swing.ImageIcon;
+import javax.swing.JComponent;
+import javax.swing.JFileChooser;
+
 /* ImagePreview.java by FileChooserDemo2.java. */
-public class ImagePreview extends JComponent
-                          implements PropertyChangeListener {
-    ImageIcon thumbnail = null;
+public class ImagePreview extends JComponent implements PropertyChangeListener {
+	private static final long serialVersionUID = 1989834587374997792L;
+
+	ImageIcon thumbnail = null;
     File file = null;
 
     public ImagePreview(JFileChooser fc) {
