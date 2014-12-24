@@ -28,6 +28,10 @@
 		</dependency>
 		<dependency>
 			<groupId>br.com.jmassucatto.filecontrol</groupId>
+			<artifactId>filecontrol-common</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>br.com.jmassucatto.filecontrol</groupId>
 			<artifactId>filecontrol-server</artifactId>
 		</dependency>
 	</dependencies>

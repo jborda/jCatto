@@ -7,13 +7,13 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 
 public class ClienteTCPBasico {
+	
 	public class ShowMessageDialogExample1 {
 		
 		public void main() {
 			try {
 				Socket cliente = new Socket("paulo", 12345);
-				ObjectInputStream entrada = new ObjectInputStream(
-						cliente.getInputStream());
+				ObjectInputStream entrada = new ObjectInputStream(cliente.getInputStream());
 
 				Date data_atual = (Date) entrada.readObject();
 

@@ -10,6 +10,7 @@
 	<modules>
 		<module>filecontrol-client</module>
 		<module>filecontrol-server</module>
+		<module>filecontrol-common</module>
 	</modules>
 
 	<dependencyManagement>
@@ -23,6 +24,11 @@
 				<groupId>org.mockito</groupId>
 				<artifactId>mockito-all</artifactId>
 				<version>1.10.8</version>
+			</dependency>
+			<dependency>
+				<groupId>br.com.jmassucatto.filecontrol</groupId>
+				<artifactId>filecontrol-common</artifactId>
+				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>br.com.jmassucatto.filecontrol</groupId>

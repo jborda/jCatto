@@ -2,12 +2,16 @@ package br.com.jmassucatto.filecontrol.server.tcp;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Arrays;
 import java.util.List;
+
+import br.com.jmassucatto.filecontrol.common.FileUtils;
+import br.com.jmassucatto.filecontrol.server.Server;
 
 public class TCPServer {
 
@@ -54,14 +58,14 @@ public class TCPServer {
 		}
 
 		private void retornaListaArquivos() throws IOException {
-			List<String> arquivos = Arrays.asList("teste1.txt", "teste2.png");//aqui pega so server
+			List<String> arquivos = new Server().getNomeArquivos();
 			saida.writeBytes(arquivos.toString());
 		}
 		
 		private void retornaArquivo(String requisicao) throws IOException {
 			String nomeArquivo = requisicao.split(":")[1];
-			//copia arquivo via server
-			saida.writeBytes("conteudo do arquivo " + nomeArquivo);
+			File arquivo = new Server().getArquivo(nomeArquivo);
+			FileUtils.copy(new FileInputStream(arquivo), saida);
 		}
 	}
 }
