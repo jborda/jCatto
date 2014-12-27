@@ -26,12 +26,8 @@ public class Server {
 		for (File arquivo : arquivos)
 			if (arquivo.getName().equals(nomeArquivo))
 				return arquivo;
+		
 		throw new RuntimeException("Arquivo não encontrado: " + nomeArquivo);
-	}
-	
-	public static void main(String[] args) {
-		System.out.println(new Server().getNomeArquivos());
-		System.out.println(new Server().getArquivo("aquivo1"));
 	}
 
 }

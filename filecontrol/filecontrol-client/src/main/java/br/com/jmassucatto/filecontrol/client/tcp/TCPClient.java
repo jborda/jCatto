@@ -3,6 +3,7 @@ package br.com.jmassucatto.filecontrol.client.tcp;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.DataOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -12,11 +13,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class TCPClient {
-
-	public static void main(String argv[]) throws Exception {
-		System.out.println(new TCPClient().getArquivos());
-		new TCPClient().getArquivo("teste1.txt");
-	}
 	
 	public List<String> getArquivos() {
 		List<String> arquivos = new ArrayList<String>();
@@ -38,15 +34,15 @@ public class TCPClient {
 		return arquivos;
 	}
 
-	public String getArquivo(String nomeArquivo) {
+	public String getArquivo(String nomeArquivoOrigem, FileOutputStream arquivoDestino) {
 
 		try {
 			Socket cliente = new Socket("localhost", 6789);
 			DataOutputStream saida = new DataOutputStream(cliente.getOutputStream());
 			BufferedReader entrada = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
-			BufferedWriter destino = new BufferedWriter(new OutputStreamWriter(System.out));
+			BufferedWriter destino = new BufferedWriter(new OutputStreamWriter(arquivoDestino));
 			
-			fazRequisicao(saida, "arquivo:"+nomeArquivo);
+			fazRequisicao(saida, "arquivo:" + nomeArquivoOrigem);
 			obtemArquivo(entrada, destino);
 			
 			cliente.close();
@@ -75,7 +71,8 @@ public class TCPClient {
 	}
 
 	private List<String> convertParaList(String retorno) {
-		String[] arrayNomes = retorno.split(",");
+		retorno = retorno.substring(1, retorno.length() - 1);
+		String[] arrayNomes = retorno.split(", ");
 		return Arrays.asList(arrayNomes);
 	}
 }
