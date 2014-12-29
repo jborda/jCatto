@@ -10,21 +10,39 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
+import br.com.jmassucatto.filecontrol.common.Excecao;
+import br.com.jmassucatto.filecontrol.common.FileControlException;
 import br.com.jmassucatto.filecontrol.common.FileUtils;
 import br.com.jmassucatto.filecontrol.server.Server;
 
-public class TCPServer {
-
-	public static void main(String argv[]) throws Exception {
-		new TCPServer().roda();
+public class TCPServer extends Thread {
+	
+	private boolean isExecutando = true;
+	private ServerSocket servidor;
+	
+	public TCPServer() {
+		try {
+			servidor = new ServerSocket(6789);
+		} catch (IOException e) {
+			throw new FileControlException(Excecao.ERRO_AO_SUBIR_SERVIDOR);
+		}
 	}
 
-	private void roda() throws Exception {	
-		ServerSocket servidor = new ServerSocket(6789);
+	public static void main(String argv[]) throws Exception {
+		new TCPServer().start();
+	}
 
-		while (true) {
-			Socket conexaoCliente = servidor.accept();
-			new Thread(new Conversa(conexaoCliente)).start();
+	public void run() {	
+		try {
+			while (isExecutando) {
+				Socket conexaoCliente = servidor.accept();
+				new Thread(new Conversa(conexaoCliente)).start();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Servidor parou!");
 		}
 	}
 	
@@ -66,6 +84,15 @@ public class TCPServer {
 			String nomeArquivo = requisicao.split(":")[1];
 			File arquivo = new Server().getArquivo(nomeArquivo);
 			FileUtils.copy(new FileInputStream(arquivo), saida);
+		}
+	}
+
+	public void para() {
+		isExecutando = false;
+		try {
+			servidor.close();
+		} catch (IOException e) {
+			throw new FileControlException(Excecao.ERRO_AO_PARAR_SERVIDOR);
 		}
 	}
 }
