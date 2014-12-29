@@ -12,6 +12,7 @@ import br.com.jmassucatto.filecontrol.server.Server;
 public class Client {
 
 	public void sincroniza() throws Exception {
+		System.out.println("Client:sincroniza");
 		TCPClient tcpClient = new TCPClient();
 		List<String> nomesArquivos = tcpClient.getArquivos();
 		for (String nomeArquivo : nomesArquivos)

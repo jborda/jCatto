@@ -4,6 +4,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.jmassucatto.filecontrol.common.Excecao;
+import br.com.jmassucatto.filecontrol.common.FileControlException;
+
 public class Server {
 	
 	public List<String> getNomeArquivos() {
@@ -27,7 +30,7 @@ public class Server {
 			if (arquivo.getName().equals(nomeArquivo))
 				return arquivo;
 		
-		throw new RuntimeException("Arquivo não encontrado: " + nomeArquivo);
+		throw new FileControlException(Excecao.ARQUIVO_NAO_ENCONTRADO, nomeArquivo);
 	}
 
 }
