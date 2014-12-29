@@ -1,4 +1,4 @@
-package br.com.jmassucatto.filecontrol.server;
+package br.com.jmassucatto.filecontrol.common.testes;
 
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
