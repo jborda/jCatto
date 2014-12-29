@@ -18,20 +18,10 @@ public class TCPServer extends Thread {
 	private boolean isExecutando = true;
 	private ServerSocket servidor;
 
-	public TCPServer() {
-		try {
-			servidor = new ServerSocket(6789);
-		} catch (IOException e) {
-			throw new FileControlException(Excecao.ERRO_AO_SUBIR_SERVIDOR);
-		}
-	}
-
 	public void run() {
 		try {
-			while (isExecutando) {
-				Socket conexaoCliente = servidor.accept();
-				new Requisicao(conexaoCliente).start();
-			}
+			sobeServidor();
+			executa();
 		} catch (Exception e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Servidor parou!");
@@ -45,6 +35,26 @@ public class TCPServer extends Thread {
 		} catch (IOException e) {
 			throw new FileControlException(Excecao.ERRO_AO_PARAR_SERVIDOR);
 		}
+	}
+
+	private void sobeServidor() throws IOException {
+		servidor = new ServerSocket(6789);
+	}
+
+	private void executa() throws IOException {
+		while (isExecutando) {
+			Socket conexaoCliente = esperaRequisicao();
+			executaRequisicao(conexaoCliente);
+		}
+	}
+
+	private Socket esperaRequisicao() throws IOException {
+		Socket conexaoCliente = servidor.accept();
+		return conexaoCliente;
+	}
+
+	private void executaRequisicao(Socket conexaoCliente) throws IOException {
+		new Requisicao(conexaoCliente).start();
 	}
 
 }

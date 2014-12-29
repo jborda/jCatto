@@ -13,6 +13,12 @@ public class FileControlException extends RuntimeException {
 		this.parametros = parametros;
 	}
 	
+	public FileControlException(Excecao excecao,  Throwable causa, Object... parametros) {
+		super(excecao.getChave(), causa);
+		this.excecao = excecao;
+		this.parametros = parametros;
+	}
+	
 	public Excecao getExcecao() {
 		return excecao;
 	}
