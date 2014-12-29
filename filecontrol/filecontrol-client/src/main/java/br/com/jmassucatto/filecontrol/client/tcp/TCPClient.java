@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import br.com.jmassucatto.filecontrol.server.comando.ComandoTipo;
+
 public class TCPClient {
 	
 	public List<String> getArquivos() {
@@ -22,7 +24,7 @@ public class TCPClient {
 			DataOutputStream saida = new DataOutputStream(cliente.getOutputStream());
 			BufferedReader entrada = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
 			
-			fazRequisicao(saida, "getArquivos");
+			fazRequisicaoGetArquivos(saida);
 			arquivos = obtemListaArquivos(entrada);
 			
 			cliente.close();
@@ -40,9 +42,10 @@ public class TCPClient {
 			Socket cliente = new Socket("localhost", 6789);
 			DataOutputStream saida = new DataOutputStream(cliente.getOutputStream());
 			BufferedReader entrada = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
-			BufferedWriter destino = new BufferedWriter(new OutputStreamWriter(arquivoDestino));
 			
-			fazRequisicao(saida, "arquivo:" + nomeArquivoOrigem);
+			fazRequisicaoGetArquivo(saida, nomeArquivoOrigem);
+			
+			BufferedWriter destino = new BufferedWriter(new OutputStreamWriter(arquivoDestino));
 			obtemArquivo(entrada, destino);
 			
 			cliente.close();
@@ -53,8 +56,12 @@ public class TCPClient {
 		return null;
 	}
 
-	private void fazRequisicao(DataOutputStream saida, String fala) throws IOException {
-		saida.writeBytes(fala + '\n');
+	private void fazRequisicaoGetArquivos(DataOutputStream saida) throws IOException {
+		saida.writeBytes(ComandoTipo.GET_ARQUIVOS.name() + '\n');
+	}
+	
+	private void fazRequisicaoGetArquivo(DataOutputStream saida, String nomeArquivo) throws IOException {
+		saida.writeBytes(ComandoTipo.GET_ARQUIVO.name() + '\n' + nomeArquivo + '\n');
 	}
 
 	private void obtemArquivo(BufferedReader entrada, BufferedWriter destino) throws IOException {

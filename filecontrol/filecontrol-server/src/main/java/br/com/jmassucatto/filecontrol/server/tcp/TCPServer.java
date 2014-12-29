@@ -2,20 +2,18 @@ package br.com.jmassucatto.filecontrol.server.tcp;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.List;
 
 import javax.swing.JOptionPane;
 
 import br.com.jmassucatto.filecontrol.common.Excecao;
 import br.com.jmassucatto.filecontrol.common.FileControlException;
-import br.com.jmassucatto.filecontrol.common.FileUtils;
-import br.com.jmassucatto.filecontrol.server.Server;
+import br.com.jmassucatto.filecontrol.server.comando.Comando;
+import br.com.jmassucatto.filecontrol.server.comando.ComandoFactory;
+import br.com.jmassucatto.filecontrol.server.comando.ComandoTipo;
 
 public class TCPServer extends Thread {
 	
@@ -38,7 +36,7 @@ public class TCPServer extends Thread {
 		try {
 			while (isExecutando) {
 				Socket conexaoCliente = servidor.accept();
-				new Thread(new Conversa(conexaoCliente)).start();
+				new Thread(new Requisicao(conexaoCliente)).start();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -46,44 +44,38 @@ public class TCPServer extends Thread {
 		}
 	}
 	
-	class Conversa implements Runnable {
+	class Requisicao implements Runnable {
 
 		private BufferedReader entrada;
 		private DataOutputStream saida;
 
-		public Conversa(Socket conexaoCliente) throws IOException {
+		public Requisicao(Socket conexaoCliente) throws IOException {
 			entrada = new BufferedReader(new InputStreamReader(conexaoCliente.getInputStream()));
 			saida = new DataOutputStream(conexaoCliente.getOutputStream());
 		}
 
 		public void run() {
 			try {
-				String requisicao = entrada.readLine();
-				retorna(requisicao);
-				entrada.close();
-				saida.close();
+				executa();
+				finaliza();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 
-		private void retorna(String requisicao) throws IOException {
-			if (requisicao.equals("getArquivos"))
-				retornaListaArquivos();
-			
-			if (requisicao.startsWith("arquivo:"))
-				retornaArquivo(requisicao);
+		private void executa() throws IOException {
+			Comando comando = getComando(entrada.readLine());
+			comando.executa(entrada, saida);
 		}
 
-		private void retornaListaArquivos() throws IOException {
-			List<String> arquivos = new Server().getNomeArquivos();
-			saida.writeBytes(arquivos.toString());
+		private void finaliza() throws IOException {
+			entrada.close();
+			saida.close();
 		}
-		
-		private void retornaArquivo(String requisicao) throws IOException {
-			String nomeArquivo = requisicao.split(":")[1];
-			File arquivo = new Server().getArquivo(nomeArquivo);
-			FileUtils.copy(new FileInputStream(arquivo), saida);
+
+		private Comando getComando(String requisicao) {
+			ComandoTipo tipo = ComandoTipo.valueOf(requisicao);
+			return new ComandoFactory(tipo).getComando();
 		}
 	}
 
