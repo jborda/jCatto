@@ -10,27 +10,40 @@ import br.com.jmassucatto.filecontrol.common.FileControlException;
 public class Server {
 	
 	public List<String> getNomeArquivos() {
-		List<String> nomeArquivos = new ArrayList<String>(); 
-		for (File arquivo : getArquivos())
-			nomeArquivos.add(arquivo.getName());
+		File[] arquivos = getArquivos();
 		
-		return nomeArquivos;
+		if (arquivos == null)
+			return new ArrayList<String>();;
+		
+		return getNomesArquivos(arquivos);
 	}
 
-	private File[] getArquivos() {
-		String caminho = "/tmp/filecontrol/server";
-		File diretorio = new File(caminho);
-		
-		return diretorio.listFiles();
-	}
-	
 	public File getArquivo(String nomeArquivo) {
 		File[] arquivos = getArquivos();
+		
 		for (File arquivo : arquivos)
 			if (arquivo.getName().equals(nomeArquivo))
 				return arquivo;
 		
 		throw new FileControlException(Excecao.ARQUIVO_NAO_ENCONTRADO, nomeArquivo);
+	}
+
+	private File[] getArquivos() {
+		return getDiretorio().listFiles();
+	}
+
+	private List<String> getNomesArquivos(File[] arquivos) {
+		List<String> nomeArquivos = new ArrayList<String>();
+	
+		for (File arquivo : arquivos)
+			nomeArquivos.add(arquivo.getName());
+		
+		return nomeArquivos;
+	}
+
+	File getDiretorio() {
+		String caminho = "/tmp/filecontrol/server";
+		return new File(caminho);
 	}
 
 }

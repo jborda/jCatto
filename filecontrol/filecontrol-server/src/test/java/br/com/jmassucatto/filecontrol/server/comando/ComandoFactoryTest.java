@@ -11,8 +11,7 @@ import br.com.jmassucatto.filecontrol.common.FileControlException;
 
 public class ComandoFactoryTest {
 	
-	@Rule
-	public ExpectedException excecao = ExpectedException.none(); 
+	@Rule public ExpectedException excecao = ExpectedException.none();
 
 	@Test
 	public void passandoTipoGetArquivosRetornaComandoGetArquivos() throws Exception {
