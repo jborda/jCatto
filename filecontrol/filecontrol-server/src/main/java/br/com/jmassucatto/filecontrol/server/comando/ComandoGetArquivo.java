@@ -12,6 +12,8 @@ import br.com.jmassucatto.filecontrol.common.FileUtils;
 import br.com.jmassucatto.filecontrol.server.Server;
 
 public class ComandoGetArquivo implements Comando {
+	
+	ComandoGetArquivo() {}
 
 	public void executa(BufferedReader entrada, DataOutputStream saida) {
 		System.out.println("ComandoGetArquivo:executa");
