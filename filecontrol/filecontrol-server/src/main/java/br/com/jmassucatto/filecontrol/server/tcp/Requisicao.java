@@ -16,8 +16,7 @@ public class Requisicao extends Thread {
 	private DataOutputStream saida;
 
 	public Requisicao(Socket conexaoCliente) throws IOException {
-		entrada = new BufferedReader(new InputStreamReader(
-				conexaoCliente.getInputStream()));
+		entrada = new BufferedReader(new InputStreamReader(conexaoCliente.getInputStream()));
 		saida = new DataOutputStream(conexaoCliente.getOutputStream());
 	}
 
