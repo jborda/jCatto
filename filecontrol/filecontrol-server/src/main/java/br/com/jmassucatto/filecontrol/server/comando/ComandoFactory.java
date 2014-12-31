@@ -22,7 +22,7 @@ public class ComandoFactory {
 		case GET_ARQUIVO:
 			return new ComandoGetArquivo();
 		default:
-			return null;
+			throw new FileControlException(Excecao.COMANDO_INVALIDO);
 		}
 	}
 

@@ -26,6 +26,12 @@
 				<version>1.10.8</version>
 			</dependency>
 			<dependency>
+				<groupId>org.powermock</groupId>
+				<artifactId>powermock-mockito-release-full</artifactId>
+				<version>1.5</version>
+				<classifier>full</classifier>
+			</dependency>
+			<dependency>
 				<groupId>br.com.jmassucatto.filecontrol</groupId>
 				<artifactId>filecontrol-common</artifactId>
 				<version>${project.version}</version>
