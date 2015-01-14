@@ -8,6 +8,8 @@ public enum Excecao {
 	ERRO_AO_SUBIR_SERVIDOR("filecontrol.server.erroAoSubirServidor"),
 	IO("filecontrol.server.io"), 
 	NAO_DEFINIDO("filecontrol.server.naoDefinido"), 
+	ERRO_AO_EXECUTAR_REQUISICAO("filecontrol.server.erroAoExucutarRequisicao"), 
+	ERRO_AO_INICIAR_CLIENTE("filecontrol.server.erroAoIniciarCliente"), 
 	;
 	
 	private String chave;
