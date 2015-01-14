@@ -35,6 +35,7 @@ public class TCPServer extends Thread {
 		} catch (IOException e) {
 			throw new FileControlException(Excecao.ERRO_AO_PARAR_SERVIDOR);
 		}
+		stop();
 	}
 
 	private void sobeServidor() throws IOException {

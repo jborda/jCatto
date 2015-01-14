@@ -6,14 +6,18 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
+import br.com.jmassucatto.filecontrol.common.Excecao;
+import br.com.jmassucatto.filecontrol.common.FileControlException;
 import br.com.jmassucatto.filecontrol.server.comando.Comando;
 import br.com.jmassucatto.filecontrol.server.comando.ComandoFactory;
 import br.com.jmassucatto.filecontrol.server.comando.ComandoTipo;
 
 public class Requisicao extends Thread {
 
-	private BufferedReader entrada;
-	private DataOutputStream saida;
+	BufferedReader entrada;
+	DataOutputStream saida;
+	
+	Requisicao() {}
 
 	public Requisicao(Socket conexaoCliente) throws IOException {
 		entrada = new BufferedReader(new InputStreamReader(conexaoCliente.getInputStream()));
@@ -25,7 +29,7 @@ public class Requisicao extends Thread {
 			executa();
 			finaliza();
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new FileControlException(Excecao.ERRO_AO_EXECUTAR_REQUISICAO, e);
 		}
 	}
 
@@ -39,7 +43,7 @@ public class Requisicao extends Thread {
 		saida.close();
 	}
 
-	private Comando getComando(String requisicao) {
+	Comando getComando(String requisicao) {
 		ComandoTipo tipo = ComandoTipo.valueOf(requisicao);
 		return new ComandoFactory(tipo).getComando();
 	}
