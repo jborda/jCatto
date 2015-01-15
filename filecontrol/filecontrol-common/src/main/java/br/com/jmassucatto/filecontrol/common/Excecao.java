@@ -10,6 +10,8 @@ public enum Excecao {
 	NAO_DEFINIDO("filecontrol.server.naoDefinido"), 
 	ERRO_AO_EXECUTAR_REQUISICAO("filecontrol.server.erroAoExucutarRequisicao"), 
 	ERRO_AO_INICIAR_CLIENTE("filecontrol.server.erroAoIniciarCliente"), 
+	ERRO_AO_EXECUTAR_COMANDO_TCP_GET_ARQUIVO("filecontrol.server.erroAoExecutarComandoTCPGetArquivo"), 
+	ERRO_AO_EXECUTAR_COMANDO_TCP_GET_ARQUIVOS("filecontrol.server.erroAoExecutarComandoTCPGetArquivos"), 
 	;
 	
 	private String chave;
