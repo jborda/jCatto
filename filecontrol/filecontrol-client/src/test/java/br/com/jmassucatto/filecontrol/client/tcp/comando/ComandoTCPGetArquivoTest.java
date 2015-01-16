@@ -2,17 +2,21 @@ package br.com.jmassucatto.filecontrol.client.tcp.comando;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.anyInt;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,6 +30,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import br.com.jmassucatto.filecontrol.common.Excecao;
 import br.com.jmassucatto.filecontrol.common.FileControlException;
+import br.com.jmassucatto.filecontrol.common.ListOutputStream;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ComandoTCPGetArquivoTest {
@@ -51,7 +56,7 @@ public class ComandoTCPGetArquivoTest {
 		
 		comando.executa();
 		
-		assertEquals(linhas, arquivoDestino.conteudo);
+		assertEquals(linhas, arquivoDestino.getConteudo());
 	}
 	
 	@Test
@@ -90,23 +95,4 @@ public class ComandoTCPGetArquivoTest {
 		doReturn(saida).when(comando).getSaida();
 	}
 
-	//TODO mover para classe externa
-	class ListOutputStream extends FileOutputStream {
-		
-		private final List<String> conteudo = new ArrayList<String>();
-		
-		@Override
-		public void write(byte[] b) throws IOException {
-			conteudo.add(new String(b));
-		}
-		
-		public ListOutputStream() throws FileNotFoundException {
-			this("arquivoFake");
-		}
-
-		public ListOutputStream(String name) throws FileNotFoundException {
-			super(name);
-		}
-
-	}
 }
