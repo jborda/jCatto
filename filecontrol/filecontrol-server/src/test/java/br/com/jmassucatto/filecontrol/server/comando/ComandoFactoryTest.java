@@ -1,6 +1,6 @@
 package br.com.jmassucatto.filecontrol.server.comando;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -12,7 +12,7 @@ import br.com.jmassucatto.filecontrol.common.FileControlException;
 public class ComandoFactoryTest {
 	
 	@Rule public ExpectedException excecao = ExpectedException.none();
-
+	
 	@Test
 	public void passandoTipoGetArquivosRetornaComandoGetArquivos() throws Exception {
 		ComandoFactory factory = new ComandoFactory(ComandoTipo.GET_ARQUIVOS);
@@ -29,6 +29,7 @@ public class ComandoFactoryTest {
 	public void passandoTipoNullDaErro() throws Exception {
 		excecao.expect(FileControlException.class);
 		excecao.expectMessage(Excecao.COMANDO_INVALIDO.getChave());
+		
 		new ComandoFactory(null);
 	}
 }

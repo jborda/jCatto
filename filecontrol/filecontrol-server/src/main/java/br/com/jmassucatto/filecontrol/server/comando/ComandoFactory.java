@@ -8,7 +8,6 @@ public class ComandoFactory {
 	private ComandoTipo tipo;
 
 	public ComandoFactory(ComandoTipo tipo) {
-		System.out.println("ComandoFactory:new:" + tipo);
 		if (tipo == null)
 			throw new FileControlException(Excecao.COMANDO_INVALIDO);
 		
