@@ -1,10 +1,7 @@
 package br.com.jmassucatto.filecontrol.server.comando;
 
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -57,13 +54,12 @@ public class ComandoGetArquivoTest {
 	
 	@Test
 	public void lancaExcecao() throws Exception {
-		doThrow(IOException.class).when(comando).getArquivo(arquivo, saida);
+		doThrow(IOException.class).when(entrada).readLine();
 
 		excecao.expect(FileControlException.class);
 		excecao.expectMessage(Excecao.IO.getChave());
 		
 		comando.executa(entrada, saida);
-		verify(comando).getArquivo(arquivo, saida);
 	}
 
 }

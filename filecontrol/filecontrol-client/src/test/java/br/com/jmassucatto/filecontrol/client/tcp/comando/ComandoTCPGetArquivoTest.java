@@ -1,21 +1,16 @@
 package br.com.jmassucatto.filecontrol.client.tcp.comando;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintStream;
 import java.net.Socket;
 import java.util.Arrays;
 import java.util.List;
@@ -28,6 +23,7 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import br.com.jmassucatto.filecontrol.common.DataOutputStreamMockBuilder;
 import br.com.jmassucatto.filecontrol.common.Excecao;
 import br.com.jmassucatto.filecontrol.common.FileControlException;
 import br.com.jmassucatto.filecontrol.common.ListOutputStream;
@@ -52,7 +48,8 @@ public class ComandoTCPGetArquivoTest {
 		
 		doNothing().when(comando).inicializa();
 		
-		mockSaida(comando);
+		DataOutputStreamMockBuilder mockBuilder = new DataOutputStreamMockBuilder();
+		doReturn(mockBuilder.getMock()).when(comando).getSaida();
 		
 		comando.executa();
 		
@@ -81,18 +78,12 @@ public class ComandoTCPGetArquivoTest {
 
 	@Test
 	public void naoInicializa_casoSaidaNaoEstejaNull() throws Exception {
-		mockSaida(comando);
+		DataOutputStreamMockBuilder mockBuilder = new DataOutputStreamMockBuilder();
+		doReturn(mockBuilder.getMock()).when(comando).getSaida();
 		
 		comando.getSaida();
 		
 		verify(comando, never()).inicializa();
-	}
-
-	private void mockSaida(ComandoTCPGetArquivo comando) throws IOException {
-		OutputStream out = mock(PrintStream.class);
-		doNothing().when(out).write(anyInt());
-		DataOutputStream saida = new DataOutputStream(out);
-		doReturn(saida).when(comando).getSaida();
 	}
 
 }

@@ -3,6 +3,7 @@ package br.com.jmassucatto.filecontrol.server.comando;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 import br.com.jmassucatto.filecontrol.common.Excecao;
@@ -31,7 +32,7 @@ public class ComandoGetArquivo implements Comando {
 	}
 
 	void getArquivo(File arquivo, DataOutputStream saida) throws IOException {
-		FileUtils.copy(arquivo, saida);
+		FileUtils.copy(new FileInputStream(arquivo), saida);
 	}
 
 }
