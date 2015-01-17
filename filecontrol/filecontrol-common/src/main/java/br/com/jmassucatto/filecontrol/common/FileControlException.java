@@ -4,25 +4,14 @@ public class FileControlException extends RuntimeException {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private Excecao excecao;
-	private Object[] parametros;
-
-	public FileControlException(Excecao excecao, Object... parametros) {
+	public FileControlException(Excecao excecao) {
 		super(excecao.getChave());
-		this.excecao = excecao;
-		this.parametros = parametros;
 	}
 	
-	public FileControlException(Excecao excecao, Throwable causa, Object... parametros) {
+	public FileControlException(Excecao excecao, Throwable causa) {
 		super(excecao.getChave(), causa);
-		this.excecao = excecao;
-		this.parametros = parametros;
 		
 		causa.printStackTrace();
-	}
-	
-	public Excecao getExcecao() {
-		return excecao;
 	}
 
 }

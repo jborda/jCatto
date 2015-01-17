@@ -25,7 +25,7 @@ public class Server {
 			if (arquivo.getName().equals(nomeArquivo))
 				return arquivo;
 		
-		throw new FileControlException(Excecao.ARQUIVO_NAO_ENCONTRADO, nomeArquivo);
+		throw new FileControlException(Excecao.ARQUIVO_NAO_ENCONTRADO);
 	}
 
 	private File[] getArquivos() {

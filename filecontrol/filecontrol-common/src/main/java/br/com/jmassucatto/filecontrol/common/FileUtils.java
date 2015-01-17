@@ -25,6 +25,7 @@ public class FileUtils {
 		while ((linha = origem.readLine()) != null)
 			destino.write(linha.getBytes());
 		
+		origem.close();
 		destino.flush();
 		destino.close();
 	}

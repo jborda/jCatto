@@ -15,14 +15,6 @@ public class ListOutputStream  extends FileOutputStream {
 		getConteudo().add(new String(b));
 	}
 	
-	@Override
-	public void write(byte[] b, int off, int len) throws IOException {
-		if (len == 0)
-			return;
-		
-		getConteudo().add(new String(b, off, len));
-	}
-	
 	public ListOutputStream() throws FileNotFoundException {
 		this("arquivoFake");
 	}
